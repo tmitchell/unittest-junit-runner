@@ -1,0 +1,19 @@
+# unittest.py JUnit TestRunner
+
+This project came about because I wanted to use [nose][1]'s
+`--with-xunit` plugin, but needed to use [unittest.py][2].
+
+It will generate a JUnit style XML test report that is readable by
+[Hudson][3].
+
+## Usage
+
+   from junitrunner import JUnitTestRunner
+
+   report_file = 'testresults.xml'
+
+   # suite is an instance of unittest.TestSuite
+
+   JUnitTestRunner(open(report_file, 'w')).run(suite)
+
+
