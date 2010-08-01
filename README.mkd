@@ -6,14 +6,17 @@ This project came about because I wanted to use [nose][1]'s
 It will generate a JUnit style XML test report that is readable by
 [Hudson][3].
 
+[1]: http://somethingaboutorange.com/mrl/projects/nose/0.11.2/
+[2]: http://docs.python.org/library/unittest.html
+[3]: http://hudson-ci.org/
+
 ## Usage
 
-   from junitrunner import JUnitTestRunner
+    from junitrunner import JUnitTestRunner
 
-   report_file = 'testresults.xml'
+    report_file = 'testresults.xml'
 
-   # suite is an instance of unittest.TestSuite
+    # suite is an instance of unittest.TestSuite
 
-   JUnitTestRunner(open(report_file, 'w')).run(suite)
-
+    JUnitTestRunner(open(report_file, 'w')).run(suite)
 
