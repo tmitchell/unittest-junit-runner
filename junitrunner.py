@@ -83,9 +83,9 @@ class JUnitTestResult(unittest.TestResult):
                 self.errors, self.failures, self.all_tests, self.test_times, self.test_status)
 
 class JUnitTestRunner:
-    def __init__(self, stream):
-        self.stream = stream
-        pass
+    def __init__(self, filename):
+        self.stream = open(filename, 'w')
+        self.stream.write('<?xml version="1.0" encoding="UTF-8"?>\n')
 
     def run(self, test):
         result = JUnitTestResult()
@@ -99,7 +99,6 @@ class JUnitTestRunner:
         result.prepare_for_print()
         
         stream = self.stream
-        stream.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         stream.write('<testsuite name="%(name)s" tests="%(total_tests)d" errors="%(test_errors)d" failures="%(test_failures)d" skip="0">\n' % {
             'name': name,
             'total_tests': result.testsRun,
@@ -129,4 +128,3 @@ class JUnitTestRunner:
                     'ex_msg': ex_msg,
                     'traceback': result.test_traces[test],})
         stream.write('</testsuite>\n')
-
