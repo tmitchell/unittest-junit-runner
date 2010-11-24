@@ -86,6 +86,7 @@ class JUnitTestRunner:
     def __init__(self, filename):
         self.stream = open(filename, 'w')
         self.stream.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+        self.stream.write('<testsuites>\n')
 
     def run(self, test):
         result = JUnitTestResult()
@@ -128,3 +129,6 @@ class JUnitTestRunner:
                     'ex_msg': ex_msg,
                     'traceback': result.test_traces[test],})
         stream.write('</testsuite>\n')
+
+    def __del__(self):
+        self.stream.write('</testsuites>\n')
