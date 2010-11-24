@@ -35,6 +35,12 @@ def split_test_name(test):
     name = name_parts[-1]
     return classname, name
 
+class JUnitTest(unittest.TestCase):
+    def __init__(self, *args, **kwargs):
+        super(JUnitTest, self).__init__(*args, **kwargs)
+        self.classname, self.name = split_test_name(self)
+
+
 class JUnitTestResult(unittest.TestResult):
     PASSED = 1
     FAILURE = 2
@@ -94,11 +100,10 @@ class JUnitTestRunner:
             'test_errors': len(result.errors),
             'test_failures': len(result.failures),})
         for test in result.all_tests:
-            classname, name = split_test_name(test)
             test_time = result.test_times[test]
             stream.write('    <testcase classname="%(classname)s" name="%(name)s" time="%(time)d"' % {
-                'classname': classname,
-                'name': name,
+                'classname': test.classname,
+                'name': test.name,
                 'time': test_time})
             if result.test_status[test] == JUnitTestResult.PASSED:
                 stream.write(' />\n')
