@@ -41,6 +41,11 @@ class JUnitTest(unittest.TestCase):
         self.classname, self.name = split_test_name(self)
 
 
+class JUnitTestSuite(unittest.TestSuite):
+    def __init__(self, *args, **kwargs):
+        super(JUnitTestSuite, self).__init__(*args, **kwargs)
+        self.name = 'unittests'
+
 class JUnitTestResult(unittest.TestResult):
     PASSED = 1
     FAILURE = 2
@@ -88,14 +93,15 @@ class JUnitTestRunner:
         test(result)
         stop_time = time.time()
         self.total_time = stop_time - start_time
-        self.print_result(result)
+        self.print_result(result, test.name)
     
-    def print_result(self, result):
+    def print_result(self, result, name):
         result.prepare_for_print()
         
         stream = self.stream
         stream.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-        stream.write('<testsuite name="unittests" tests="%(total_tests)d" errors="%(test_errors)d" failures="%(test_failures)d" skip="0">\n' % {
+        stream.write('<testsuite name="%(name)s" tests="%(total_tests)d" errors="%(test_errors)d" failures="%(test_failures)d" skip="0">\n' % {
+            'name': name,
             'total_tests': result.testsRun,
             'test_errors': len(result.errors),
             'test_failures': len(result.failures),})
