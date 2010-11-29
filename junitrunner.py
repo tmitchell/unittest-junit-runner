@@ -95,6 +95,7 @@ class JUnitTestRunner:
         stop_time = time.time()
         self.total_time = stop_time - start_time
         self.print_result(result, test.name)
+        return result
     
     def print_result(self, result, name):
         result.prepare_for_print()
