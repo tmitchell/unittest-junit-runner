@@ -31,3 +31,13 @@ It will generate a JUnit style XML test report that is readable by
     suite.addTest(PassingTest(None))
 
     result = JUnitTestRunner(report_file).run(suite)
+
+## Example Report
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <testsuites>
+        <testsuite name="Example" tests="2" errors="0" failures="0" skip="0">
+            <testcase classname="__main__.PassingTest" name="Renamed Test" time="0" />
+            <testcase classname="__main__.PassingTest" name="runTest" time="0" />
+        </testsuite>
+    </testsuites>
