@@ -14,10 +14,20 @@ It will generate a JUnit style XML test report that is readable by
 
     from junitrunner import JUnitTestRunner, JUnitTest, JUnitTestSuite
 
+    class PassingTest(JUnitTest):
+        def __init__(self, name, *args, **kwargs):
+            super(PassingTest, self).__init__(*args, **kwargs)
+            if name:
+                self.name = name
+         
+        def runTest(self):
+            assert True
+
     report_file = 'testresults.xml'
 
-    # suite is an instance of JUnitTestSuite
-    # which is itself comprised of JUnitTest instances
+    suite = JUnitTestSuite()
+    suite.name = 'Example'
+    suite.addTest(PassingTest('Renamed Test'))
+    suite.addTest(PassingTest(None))
 
     result = JUnitTestRunner(report_file).run(suite)
-
