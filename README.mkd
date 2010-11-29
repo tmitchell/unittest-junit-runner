@@ -12,11 +12,12 @@ It will generate a JUnit style XML test report that is readable by
 
 ## Usage
 
-    from junitrunner import JUnitTestRunner
+    from junitrunner import JUnitTestRunner, JUnitTest, JUnitTestSuite
 
     report_file = 'testresults.xml'
 
-    # suite is an instance of unittest.TestSuite
+    # suite is an instance of JUnitTestSuite
+    # which is itself comprised of JUnitTest instances
 
-    JUnitTestRunner(open(report_file, 'w')).run(suite)
+    result = JUnitTestRunner(report_file).run(suite)
 
